@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from django.core.mail import send_mail
+
 
 # Create your views here.
 # index             - Головна сторінка сайту, яка зустрічає користувача.
@@ -26,9 +26,14 @@ def index(request):
             user_password = request.POST.get('user_pass')
 
             if request.POST.get('keep_logged') is None:
-                user_keep = False
+                # user_keep = False
+                # Не потрібно зберігати сессію користувача
+                # За замовченням час активної сессії - 10 хвилин (600 секунд)
+                request.session.set_expiry(0)
             else:
-                user_keep = True
+                # user_keep = True
+                # Зберігаємо сессію користувача протягом 5 діб (60*60*24*5 секунд)
+                request.session.set_expiry(60*60*24*5)
 
             # 2. Перевіряємо відповідність Логіну і Паролю:
             user = authenticate(request, username=user_login, password=user_password)

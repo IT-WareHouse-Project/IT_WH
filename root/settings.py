@@ -22,6 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-__^v3vvlcd55@n#+y)0%cqx!xoh2n!#^%l3jv*o*p$m9k45x50"
 
+# Час зберігання cookie-файлів за замовченням (10 хвилин):
+SESSION_COOKIE_AGE = 600
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = []
@@ -105,12 +108,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # EMail System for Sending Messages:
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-## Just for Example:
-## EMAIL_HOST = ''
-## EMAIL_PORT = 587
-## EMAIL_USE_TLS = True
-## EMAIL_HOST_USER = os.environ.get('traces_email')
-## EMAIL_HOST_PASSWORD = os.environ.get('traces_email_password')
+# Just for Example:
+# EMAIL_HOST = ''
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.environ.get('traces_email')
+# EMAIL_HOST_PASSWORD = os.environ.get('traces_email_password')
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
