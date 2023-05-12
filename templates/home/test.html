@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Just a small Test</h2>
+    <select id="simple" name="simple">
+        <option>Banana</option>
+        <option selected>Cherry</option>
+        <option>Lemon</option>
+    </select>
+    <input type="submit" onclick="myFunction() ">
+    <p id="x"></p>
+    <script>
+        function myFunction() {
+        var x = document.getElementById("simple").value;
+        document.getElementById("x").innerHTML = x; }
+    </script>
+</body>
+</html>

@@ -27,49 +27,81 @@
 								<!-- ГОЛОВНА СТОРІНКА СИСТЕМИ == DASHBOARD -->
 								<li class="nav-item"><a class="nav-link" href="/itwh/main_page">Головна</a></li>
 
-								<!-- СТОРІНКА ВІДОМОСТЕЙ ПРО ОБЛАДНАННЯ -->
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Обладнання</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="category.html">Моє обладнання</a></li>
-										{% if user_data.u_group == 'Admins' %}
-											<li class="nav-item"><a class="nav-link" href="single-product.html">Категорії</a></li>
-											<li class="nav-item"><a class="nav-link" href="single-product.html">Виробники</a></li>
-											<li class="nav-item"><a class="nav-link" href="single-product.html">Постачальники</a></li>
-											<li class="nav-item"><a class="nav-link" href="single-product.html">Усе обладнання</a></li>
-										{% endif %}
-									</ul>
-								</li>
+								{% for group in request.user.groups.all %}
+									{% if group.name == 'Admins' %}
+									<!-- ЯКЩО КОРИСТУВАЧ ІЗ ГРУПИ АДМІНІВ, ВІДОБРАЖАЄМО ПОВНЕ МЕНЮ -->
+										<li class="nav-item submenu dropdown">
+											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+											   role="button" aria-haspopup="true" aria-expanded="false">Обладнання</a>
+											<ul class="dropdown-menu">
+												<li class="nav-item">
+													<a class="nav-link" href="category.html">Моє обладнання</a></li>
+												<li class="nav-item"><a class="nav-link" href="single-product.html">Категорії</a></li>
+												<li class="nav-item"><a class="nav-link" href="single-product.html">Виробники</a></li>
+												<li class="nav-item"><a class="nav-link" href="single-product.html">Постачальники</a></li>
+												<li class="nav-item"><a class="nav-link" href="single-product.html">Усе обладнання</a></li>
+											</ul>
+										</li>
 
-								<!-- СТОРІНКА ВІДОМОСТЕЙ ПРО КОМПАНІЮ -->
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Компанія</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="blog.html">Про співробітника</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Про компанію</a></li>
-										{% if user_data.u_group == 'Admins' %}
-											<li class="nav-item"><a class="nav-link" href="single-blog.html">Наші міста</a></li>
-											<li class="nav-item"><a class="nav-link" href="single-blog.html">Наші локації</a></li>
-											<li class="nav-item"><a class="nav-link" href="single-blog.html">Усі співробітники</a></li>
-										{% endif %}
-									</ul>
-								</li>
+									<!-- СТОРІНКА ВІДОМОСТЕЙ ПРО КОМПАНІЮ -->
+										<li class="nav-item submenu dropdown">
+											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+											   role="button" aria-haspopup="true" aria-expanded="false">Компанія</a>
+											<ul class="dropdown-menu">
+												<li class="nav-item"><a class="nav-link" href="blog.html">Про співробітника</a></li>
+												<li class="nav-item"><a class="nav-link" href="/company/details">Про компанію</a></li>
+												<li class="nav-item"><a class="nav-link" href="single-blog.html">Наші міста</a></li>
+												<li class="nav-item"><a class="nav-link" href="single-blog.html">Наші локації</a></li>
+												<li class="nav-item"><a class="nav-link" href="single-blog.html">Усі співробітники</a></li>
+											</ul>
+										</li>
 
-								<!-- User Profile Settings -->
-								<li class="nav-item submenu dropdown active">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-									 aria-expanded="false">Привіт, {{ user.username }}</a>
-									<ul class="dropdown-menu">
-										{% if user_data.u_group == 'Admins' %}
-											<li class="nav-item active"><a class="nav-link" href="#">Акаунти</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">Компанія</a></li>
-										{% endif %}
-										<li class="nav-item"><a class="nav-link" href="/accounts/my_profile">Мій Профіль</a></li>
-										<li class="nav-item"><a class="nav-link" href="/user_logout">Вихід</a></li>
-									</ul>
-								</li>
+									<!-- User Profile Settings -->
+										<li class="nav-item submenu dropdown active">
+											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+											   role="button" aria-haspopup="true" aria-expanded="false">
+												Привіт, {{ user.username }}</a>
+											<ul class="dropdown-menu">
+												<li class="nav-item active"><a class="nav-link" href="#">Акаунти</a></li>
+												<li class="nav-item"><a class="nav-link" href="/company/">Компанія</a></li>
+												<li class="nav-item"><a class="nav-link" href="/accounts/my_profile">Мій Профіль</a></li>
+												<li class="nav-item"><a class="nav-link" href="/user_logout">Вихід</a></li>
+											</ul>
+										</li>
+
+									{% else %}
+									<!-- ЯКЩО КОРИСТУВАЧ НЕ Э АДМІН, ТО ВІН БАЧИТЬ ЛИШЕ СВОЄ -->
+										<li class="nav-item submenu dropdown">
+											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+											   role="button" aria-haspopup="true" aria-expanded="false">Обладнання</a>
+											<ul class="dropdown-menu">
+												<li class="nav-item">
+													<a class="nav-link" href="category.html">Моє обладнання</a></li>
+											</ul>
+										</li>
+
+									<!-- СТОРІНКА ВІДОМОСТЕЙ ПРО КОМПАНІЮ -->
+										<li class="nav-item submenu dropdown">
+											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+										   		role="button" aria-haspopup="true" aria-expanded="false">Компанія</a>
+											<ul class="dropdown-menu">
+												<li class="nav-item"><a class="nav-link" href="blog.html">Про співробітника</a></li>
+												<li class="nav-item"><a class="nav-link" href="/company/details">Про компанію</a></li>
+											</ul>
+										</li>
+
+									<!-- User Profile Settings -->
+										<li class="nav-item submenu dropdown active">
+											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+											   role="button" aria-haspopup="true" aria-expanded="false">
+												Привіт, {{ user.username }}</a>
+											<ul class="dropdown-menu">
+												<li class="nav-item"><a class="nav-link" href="/accounts/my_profile">Мій Профіль</a></li>
+												<li class="nav-item"><a class="nav-link" href="/user_logout">Вихід</a></li>
+											</ul>
+										</li>
+									{% endif %}
+								{% endfor %}
 							{% endif %}
 						</ul>
 					</div>

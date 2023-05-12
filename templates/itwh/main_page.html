@@ -6,8 +6,8 @@
 <h3>DashBoard нашого проекту</h3>
 <h4>User Data:</h4>
 <p>
-    {{ user_data.u_id }}
-    {{ user_data.u_group }}
+    {{ request.user.id }}
+    {{ request.user.email }}
 </p>
 {% endblock content %}
 <!-- IT WH: DashBoard -->
